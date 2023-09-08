@@ -70,11 +70,14 @@ StoreInitialClipboard = %Clipboard%
 HasWrapped := 0 ;can take values 0 or 2; 2 so we can reverse search direction (skiping the first character), or 0 so we presever base search behaviour
 StoreOriginalLine := ""
 
-BackwardSearch:
-
-;disable arrow keys briefly
+; set up hotkey for left and right keys so we can lock them out later
 Hotkey, Left, DoNothing
 Hotkey, Right, DoNothing
+
+BackwardSearch:
+;disable arrow keys briefly
+Hotkey, Left, on
+Hotkey, Right, on
 
 ;just do this once to preserve the line for safety
 if (StoreOriginalLine = "")
@@ -206,8 +209,8 @@ Goto, ManageClipboardAndReturn
 ForwardSearch:
 
 ;disable arrow keys briefly
-Hotkey, Left, DoNothing
-Hotkey, Right, DoNothing
+Hotkey, Left, on
+Hotkey, Right, on
 
 Send, +{Home}
 Sleep, 10
@@ -293,7 +296,7 @@ ManageClipboardAndReturn:
 ;MsgBox, StoreInitialClipboard %StoreInitialClipboard%
 ;MsgBox, StoreOriginalLine %StoreOriginalLine%
 
-;reenable arrow keys
+;reenable arrow keys (just for safety)
 Hotkey, Left, Off
 Hotkey, Right, Off
 
