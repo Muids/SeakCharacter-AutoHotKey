@@ -71,7 +71,7 @@ HasWrapped := 0 ;can take values 0 or 2; 2 so we can reverse search direction (s
 StoreOriginalLine := ""
 
 ;start the timer just once, we can restart it more later 
-SetTimer, ManageClipboardAndReturn, -1500
+SetTimer, ManageClipboardAndReturn, -3000
 SetTimer, ManageClipboardAndReturn, off
 
 BackwardSearch:
@@ -171,11 +171,14 @@ ArrowLoop:
 ;MsgBox, Got to this point
 
 ;reenable arrow keys
-Hotkey, Left, LeftAsSearch
-Hotkey, Right, RightAsSearch
+Hotkey, Left, off
+Hotkey, Right, off
 
-Hotkey, Left, On
-Hotkey, Right, On
+Hotkey, ^Left, LeftAsSearch
+Hotkey, ^Right, RightAsSearch
+
+Hotkey, ^Left, On
+Hotkey, ^Right, On
 
 SetTimer, ManageClipboardAndReturn, on
 
@@ -286,6 +289,9 @@ ManageClipboardAndReturn:
 Hotkey, Left, Off
 Hotkey, Right, Off
 
+Hotkey, ^Left, Off
+Hotkey, ^Right, Off
+
 ;note deleting is safe even if file doesn't exist yet
 FileDelete, C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
 FileAppend, %StoreOriginalLine%, C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
@@ -302,7 +308,7 @@ Disable:
 return
 
 LeftAsSearch:
-;This will restart the timer so we get another 1.5 seconds to act again
+;This will restart the timer so we get another 3 seconds to act again
 SetTimer, ManageClipboardAndReturn, On
 Goto, BackwardSearch
 return
