@@ -101,14 +101,6 @@ if (StoreOriginalLine = "")
 
 IsReverseSearch := -1 + HasWrapped ; -1 is base behaviour for backward search. neg so we find the last element -1 so we ignore the last character, has wrapped is 0 or 2
 
-;debug
-;MsgBox, Backward Search... HasWrapped: %HasWrapped% ... IsReverseSearch: %IsReverseSearch%
-;if ( HasWrapped = 2)
-;{
-;    MsgBox, head %head%
-;    MsgBox % InStr(head,SearchChar,,IsReverseSearch)
-;}
-
 ;looking at documentaion starting pos of 0 does search in reverse (from last to first)
 position := InStr(head,SearchChar,,IsReverseSearch)
 
@@ -291,8 +283,8 @@ Goto, ManageClipboardAndReturn
 ManageClipboardAndReturn:
 
 ; Debug Display
-MsgBox, StoreInitialClipboard %StoreInitialClipboard%
-MsgBox, StoreOriginalLine %StoreOriginalLine%
+;MsgBox, StoreInitialClipboard %StoreInitialClipboard%
+;MsgBox, StoreOriginalLine %StoreOriginalLine%
 
 ;note deleting is safe even if file doesn't exist yet
 FileDelete, C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
