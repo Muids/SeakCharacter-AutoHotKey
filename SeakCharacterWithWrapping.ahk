@@ -72,6 +72,10 @@ StoreOriginalLine := ""
 
 BackwardSearch:
 
+;disable arrow keys briefly
+Hotkey, Left, DoNothing
+Hotkey, Right, DoNothing
+
 ;just do this once to preserve the line for safety
 if (StoreOriginalLine = "")
 {
@@ -140,17 +144,23 @@ Send, {Del}
 Sleep, 10
 
 Send %head2%
+Sleep, 50
 
 Send, {Home}
 Sleep, 10
 
 Send %head1%
+Sleep, 50
 
 ;-----------------------------
 ;    Arrow Search Loop
 ;-----------------------------
 
 ArrowLoop:
+
+;reenable arrow keys
+Hotkey, Left, Off
+Hotkey, Right, Off
 
 Input, CaughtInput, L1 T3,{LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}{RWin}{AppsKey}{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{Left}{Right}{Up}{Down}{Home}{End}{PgUp}{PgDn}{Del}{Ins}{BS}{CapsLock}{NumLock}{PrintScreen}{Pause}
 
@@ -194,6 +204,10 @@ Goto, ManageClipboardAndReturn
 
 
 ForwardSearch:
+
+;disable arrow keys briefly
+Hotkey, Left, DoNothing
+Hotkey, Right, DoNothing
 
 Send, +{Home}
 Sleep, 10
@@ -254,21 +268,14 @@ Send, {Del}
 Sleep, 10
 
 Send %tail2%
+Sleep, 50
 
 Send, {Home}
 Sleep, 10
 
 Send %head%
 Send %tail1%
-
-; Debug Display
-;MsgBox, head %head%
-
-; Debug Display
-;MsgBox, tail 1 %tail1%
-
-; Debug Display
-;MsgBox, tail 2 %tail2%
+Sleep, 50
 
 Goto, ArrowLoop
 
@@ -286,10 +293,18 @@ ManageClipboardAndReturn:
 ;MsgBox, StoreInitialClipboard %StoreInitialClipboard%
 ;MsgBox, StoreOriginalLine %StoreOriginalLine%
 
+;reenable arrow keys
+Hotkey, Left, Off
+Hotkey, Right, Off
+
 ;note deleting is safe even if file doesn't exist yet
 FileDelete, C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
 FileAppend, %StoreOriginalLine% , C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
 
 clipboard = %StoreInitialClipboard%
 
+return
+
+
+DoNothing:
 return
