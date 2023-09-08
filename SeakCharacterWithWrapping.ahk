@@ -45,14 +45,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 Ctrl:: 
-; Define variables
-HasWrapped := 0 ;can take values 0 or 2; 2 so we can reverse search direction (skiping the first character), or 0 so we presever base search behaviour
 
 ; Wait for 4 seconds for your input ;and break out on any special key pressed
 Input, SearchChar, L1 T3, {LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}{RWin}{AppsKey}{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{Left}{Right}{Up}{Down}{Home}{End}{PgUp}{PgDn}{Del}{Ins}{BS}{CapsLock}{NumLock}{PrintScreen}{Pause}
 
-; Check if any input was received
-
+; Verify good input was received
 if (ErrorLevel = "Timeout")
 {
     ;MsgBox, No input received within 4 seconds.
@@ -65,7 +62,27 @@ If InStr(ErrorLevel, "EndKey:")
     return
 }
 
+
+;keep users clipboard for safety
+StoreInitialClipboard = %Clipboard%
+
+; Define variables
+HasWrapped := 0 ;can take values 0 or 2; 2 so we can reverse search direction (skiping the first character), or 0 so we presever base search behaviour
+StoreOriginalLine := ""
+
 BackwardSearch:
+
+;just do this once to preserve the line for safety
+if (StoreOriginalLine = "")
+{
+    Send, +{End}
+    Sleep, 10
+
+    Send, ^c
+    Sleep, 75
+
+    tail := Clipboard
+}
 
 Send, +{Home}
 Sleep, 10
@@ -74,6 +91,12 @@ Send, ^c
 Sleep, 75
 
 head := Clipboard
+
+if (StoreOriginalLine = "")
+{
+    ;MsgBox, wrote to StoreOriginalLine
+    StoreOriginalLine := head tail
+}
 
 
 IsReverseSearch := -1 + HasWrapped ; -1 is base behaviour for backward search. neg so we find the last element -1 so we ignore the last character, has wrapped is 0 or 2
@@ -112,7 +135,7 @@ if (!position)
 	Goto, ForwardSearch
     }
 
-    return
+    Goto, ManageClipboardAndReturn
 }
 
 ;succesfully found a character - can reset HasWrapped, doesn't matter if we did wrap or not
@@ -144,7 +167,7 @@ Input, CaughtInput, L1 T3,{LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}
 if (ErrorLevel = "Timeout")
 {
     ;MsgBox, No input received within 4 seconds.
-    return
+    Goto, ManageClipboardAndReturn
 }
 if (ErrorLevel = "EndKey:Left")
 {
@@ -170,7 +193,7 @@ if (ErrorLevel = "EndKey:Right")
 ;Don't eat the input if it's not an arrow key ;note we don't get here if there is a timeout so there shouldn't be a risk of it being empty
 Send, %CaughtInput%
 
-return
+Goto, ManageClipboardAndReturn
 
 
 ;-----------------------------
@@ -226,7 +249,7 @@ if (!position)
 	Goto, BackwardSearch
     }
 
-    return
+    Goto, ManageClipboardAndReturn
 }
 
 ;succesfully found a character - can reset HasWrapped, doesn't matter if we did wrap or not
@@ -256,5 +279,25 @@ Send %tail1%
 ;MsgBox, tail 2 %tail2%
 
 Goto, ArrowLoop
+
+Goto, ManageClipboardAndReturn
+
+
+
+;-----------------------------
+;  Manage Clipboard and Exit
+;-----------------------------
+
+ManageClipboardAndReturn:
+
+; Debug Display
+MsgBox, StoreInitialClipboard %StoreInitialClipboard%
+MsgBox, StoreOriginalLine %StoreOriginalLine%
+
+;note deleting is safe even if file doesn't exist yet
+FileDelete, C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
+FileAppend, %StoreOriginalLine% , C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
+
+clipboard = %StoreInitialClipboard%
 
 return
