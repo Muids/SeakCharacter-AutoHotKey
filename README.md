@@ -3,8 +3,11 @@ Go to specified character in a line of editable text, with line wrapping and dir
 
 
 **Author:** Diarmuid O'Sullivan
+
 **Date:** 8th Sept 2023
+
 **Description:** Place text caret on a given character in editable text, similar to vim's go to character 'f' key.
+
 **Main Use Case:** There is one typo, and you want to teleport directly to that mistake to fix it.
 
 ---
