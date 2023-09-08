@@ -27,8 +27,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ;KeyHistory
 
-;^F5::Reload
-;return
+;ctrl and F5 to update to latest code changes
+^F5::Reload
+return
 
 ;Debug Message
 ;Ctrl:: MsgBox, Ctrl
@@ -40,12 +41,11 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 
 Ctrl:: 
-; Define a variable to store the input
-SearchChar := ""
+; Define variables
 HasWrapped := 0  ;a boolean
 
 ; Wait for 4 seconds for your input ;and break out on any special key pressed
-Input, UserInput, L1 T4, {LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}{RWin}{AppsKey}{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{Left}{Right}{Up}{Down}{Home}{End}{PgUp}{PgDn}{Del}{Ins}{BS}{CapsLock}{NumLock}{PrintScreen}{Pause}
+Input, SearchChar, L1 T4, {LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}{RWin}{AppsKey}{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{Left}{Right}{Up}{Down}{Home}{End}{PgUp}{PgDn}{Del}{Ins}{BS}{CapsLock}{NumLock}{PrintScreen}{Pause}
 
 ; Check if any input was received
 
@@ -56,14 +56,10 @@ if (ErrorLevel = "Timeout")
 }
 If InStr(ErrorLevel, "EndKey:")
 {
-    ;MsgBox, You entered "%UserInput%" and terminated the input with %ErrorLevel%.
+    ;MsgBox, You entered "%SearchChar%" and terminated the input with %ErrorLevel%.
     ;it would be nice to not eat this input but preventing that seems hard and risky
     return
 }
-
-; Store the input in the variable
-SearchChar := UserInput
-
 
 BackwardSearch:
 
