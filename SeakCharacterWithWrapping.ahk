@@ -302,7 +302,7 @@ Disable:
 return
 
 LeftAsSearch:
-;This will restart the timer so we get another 3 seconds to act again
+;This will restart the timer so we get another 1.5 seconds to act again
 SetTimer, ManageClipboardAndReturn, On
 Goto, BackwardSearch
 return
