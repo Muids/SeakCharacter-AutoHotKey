@@ -28,8 +28,10 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;KeyHistory
 
 ;ctrl and F5 to update to latest code changes
-;^F5::Reload
-;return
+^F5::Reload
+return
+
+;you have to test it in a simpler setting
 
 ;Debug Message
 ;^q:: MsgBox % InStr("tet trings", "s",,-1)
@@ -70,14 +72,14 @@ StoreInitialClipboard = %Clipboard%
 HasWrapped := 0 ;can take values 0 or 2; 2 so we can reverse search direction (skiping the first character), or 0 so we presever base search behaviour
 StoreOriginalLine := ""
 
-; set up hotkey for left and right keys so we can lock them out later
-Hotkey, Left, DoNothing
-Hotkey, Right, DoNothing
+;start the timer just once, we can restart it more later 
+SetTimer, ManageClipboardAndReturn, -3000
+SetTimer, ManageClipboardAndReturn, off
 
 BackwardSearch:
 ;disable arrow keys briefly
-Hotkey, Left, on
-Hotkey, Right, on
+Hotkey, Left, Disable
+Hotkey, Right, Disable
 
 ;just do this once to preserve the line for safety
 if (StoreOriginalLine = "")
@@ -161,44 +163,17 @@ Sleep, 50
 
 ArrowLoop:
 
+;Debug Display
+;MsgBox, Got to this point
+
 ;reenable arrow keys
-Hotkey, Left, Off
-Hotkey, Right, Off
+Hotkey, Left, LeftAsSearch
+Hotkey, Right, RightAsSearch
 
-Input, CaughtInput, L1 T3,{LControl}{RControl}{LAlt}{RAlt}{LShift}{RShift}{LWin}{RWin}{AppsKey}{F1}{F2}{F3}{F4}{F5}{F6}{F7}{F8}{F9}{F10}{F11}{F12}{Left}{Right}{Up}{Down}{Home}{End}{PgUp}{PgDn}{Del}{Ins}{BS}{CapsLock}{NumLock}{PrintScreen}{Pause}
+SetTimer, ManageClipboardAndReturn, on
 
-; Check if any input was received
-
-if (ErrorLevel = "Timeout")
-{
-    ;MsgBox, No input received within 4 seconds.
-    Goto, ManageClipboardAndReturn
-}
-if (ErrorLevel = "EndKey:Left")
-{
-    ;MsgBox, Error %ErrorLevel%
-    Goto, BackwardSearch
-}
-if (ErrorLevel = "EndKey:Right")
-{
-    ;MsgBox, Error %ErrorLevel%
-    Goto, ForwardSearch
-}
-
-; Debug Display
-;MsgBox, No Match %Direction%
-
-; Debug Display
-;MsgBox, %head1%
-
-; Debug Display
-;MsgBox, head 2 %head2%
-
-
-;Don't eat the input if it's not an arrow key ;note we don't get here if there is a timeout so there shouldn't be a risk of it being empty
-Send, %CaughtInput%
-
-Goto, ManageClipboardAndReturn
+;the Timer will deal with safetly ending the program so we can simply return now
+return
 
 
 ;-----------------------------
@@ -209,8 +184,8 @@ Goto, ManageClipboardAndReturn
 ForwardSearch:
 
 ;disable arrow keys briefly
-Hotkey, Left, on
-Hotkey, Right, on
+Hotkey, Left, Disable
+Hotkey, Right, Disable
 
 Send, +{Home}
 Sleep, 10
@@ -282,9 +257,6 @@ Sleep, 50
 
 Goto, ArrowLoop
 
-Goto, ManageClipboardAndReturn
-
-
 
 ;-----------------------------
 ;  Manage Clipboard and Exit
@@ -302,12 +274,26 @@ Hotkey, Right, Off
 
 ;note deleting is safe even if file doesn't exist yet
 FileDelete, C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
-FileAppend, %StoreOriginalLine% , C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
+FileAppend, %StoreOriginalLine%, C:\Users\Diarmuid.Osullivan\Documents\MyCoding\AHKScripts\Notes on developing SeakCharacter\StoreOriginalLine.txt
 
 clipboard = %StoreInitialClipboard%
 
 return
 
+;--------------------------
+;labels for setting hotkeys
+;--------------------------
 
-DoNothing:
+Disable:
+return
+
+LeftAsSearch:
+;This will restart the timer so we get another 3 seconds to act again
+SetTimer, ManageClipboardAndReturn, On
+Goto, BackwardSearch
+return
+
+RightAsSearch:
+SetTimer, ManageClipboardAndReturn, On
+Goto, ForwardSearch
 return
