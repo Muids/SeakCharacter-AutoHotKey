@@ -1,0 +1,82 @@
+the idea of pasting in a white space version of the text won't work since it lose's my cursors position
+
+
+I could help my program by at least being in the same line as the character I want to find.
+It should find the first occurance before or after depending on what I tell it.
+
+to so this we can do shift end (or home) and then find the first (or last) occurance within that copied snippet.
+Nicely we can repeat this to go forward (or back) one more as our copied field will newly not include the current found character. 
+(build this in have to think about which character to ignore depending on the direction, but also where to place the cursor)
+
+dfgsdfgsddgfgdfgd (press right or left depending on home or end to get back to current location)
+
+maybe I can actually trick the program into putting my cursor on the right character if I can paste the front and back of the line
+
+1pastbinF12pastebin2
+
+1pastbinF12pastebin2 
+
+yeah so paste the second half, then home, then paste the first half (including the character to find) and cursor will be right in front.
+
+
+
+asdasdasfiejokasdasdasfiejokmddladfgdg
+
+
+
+1pastbin12pastebinF23pastebin3
+
+1pastbin12pastebinF23pastebin3
+
+
+;press key combo
+;wait maybe 3-5 seconds for the user input of search character (not too short to miss the chance but don't lock out the user for too long either)
+
+;send shift home or shift end
+;copy to clipboard
+
+;search within that string
+;ignoring either the first or last character within that search
+
+;if not found do nothing - finish script
+
+;if found
+;delete highlighted text
+
+;split the string into two paHomerts based on the found character
+;(retain found character at end of first string)
+
+;paste second string
+;send home
+
+;paste first string
+;done script
+
+
+;..... actually pasting order is more difficult if we are searching forward
+
+for forward, we need to keep the head of the string,
+
+then we do our search to split the tail of the string
+
+then we add the head to the first part of the tail so we have only two strings
+
+then we do the pasting order again, second part, home, first part (which is head plus first part of tail including the found character)
+
+
+ideas for key combo
+
+I could do double alt, but that could lead to errors
+
+alt gr seems good (accept I don['t think it's on every keyboard)
+
+
+to distinguish direction I could use shift with the letter to do the search.
+Captial letter means search ... forwards
+usually I will notice a mistake after writing it so I want to jump back more often
+
+
+
+
+Now I have to test this with some refal text f so I can be sure it's not fucking things up
+Now I have to test this with some refal text f so I can be sure it's not fucking things up

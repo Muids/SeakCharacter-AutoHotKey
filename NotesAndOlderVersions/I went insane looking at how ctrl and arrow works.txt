@@ -1,0 +1,75 @@
+sdfjahsdfkja nsihsiuocadsfouhasefiawhe  jvnkjsdfkhsd  sdfsdfiuh3234290 24ew df *(( *)*& tugaMSND LK(* s&h KJDSFSDIF KN
+SFDGDFPGJSODhid hosdjf ojsdofj  989384 9849 *(*( IUHC (*SF*( AS HF(SFHfy(*Y(98Y(*
+y(*y 98y89 h(*h 89H 89h(*h hiu H9h 8ggf gfGF87g&*GScgx8 g9 8s g
+maru had a little lamb littfe lamb little lamb and it's fleece was white as snow 
+
+      f                   f                  f      
+
+!"£$%^&*()_+-=
+
+sdfs!"£$%^&*()_+{}:@~<>?-=[];'#,./
+
+behaviour of special symbols is different to white space, white space is skipped but catches
+sdfasdf£dfgsfgsf$dfgsdfgdsdg sdfdsfgdf
+these symbols are not skipped and catch
+££££££
+
+fdgdfgdfg"dfgsdf
+
+sdfgsdfg£$sddfg
+
+what the fuck is this behaviour
+
+sdfs!"£$
+
+sdfs!"$£
+
+sdgsdfg"£dfsdfgsdfgsdf
+
+sdfsdfs£sdfsdfsdf
+
+sdfsdfsdf!sdfsdfsdf
+
+dfsdfgs"!sdfsdfsd
+
+so quotes somehow ignore the power of symbols stopping shit
+
+sdfas!sdfsdfsdf
+sdfsdf?sdfsdf
+
+and some symbols do act like whit space, they stop but are skipped  like ? and !
+
+sdfsdf.asdfasdf (. acts like a charcter)
+
+
+dsdfs".dfsdfgd (no effect)
+
+sfgsdfgdsf"?sdfsdf
+
+sfdfdfg"!sddfsdf
+
+" turns ? ! ino behaving like an unquoted symbol
+
+fdfgdfg£"sdfsfss (" after symbol seems to have no effect)
+
+sdfsdfsd£sdfsdf
+
+sdfsdf"£sdfsdfsd (" signle before symbol is enough to pass over (left and right) a stop before symbol)
+
+sdfsdfsd"!"sdfsdfs (" on both sides are need to pass both left and right directionally)
+
+dfsdfsd!"sdfsdfsdf (right side " is enough to pass a stop after symbol in both directions)
+
+
+asdfasdf'£sdsdfsdfs ' seems to work the same as "
+
+sdfsdfs%$(£sdfsdf  (maybe stop before symbols get turned into their own type of block)
+
+wtf is % doing? it seems to be a stop before and after
+
+sdfsd % sdfsdf
+
+cdfgdfg%?
+
+
+sdfsdf%£sdfsdf

@@ -1,0 +1,57 @@
+
+----------------
+multi search
+----------------
+
+
+get into a locked state (again with a few second expxiry window)
+where if you keep pressing the same search character (or itself with shift)
+then you cycle through the characters backwards or forwards
+
+using only the same letter (and breaking if another letter is hit) 
+makes sense because if I want to fix a typoed letter than I won't be replacing it with itself
+
+...but actually sometimes I miss a double letter
+or maybe I would want to capitalize or uncapitalise
+
+
+aha! why not just press the hot ket alt gr again to repeat search, no need for the character
+(and shift alt gr for forwards)
+
+----------------
+multi search - Problems
+----------------
+Alt Gr is all kinds of crazy on my keyboard, it is already two keys, Lctrl+RAlt and authotkey doesn't do triple combos
+
+so I could do alt gr to enter the search state ... and then the letter to search, no remember that's bad because we want free typing
+
+
+how about just Rctrl or Shift+ Rctrl. at least I can modify that
+
+it would be cool if the search didn't just fail if we looked in the wrong direction but instead wrapped, 
+so we still end up in the search state
+
+----------------
+multi search - Solution
+----------------
+this method is an addaption of the cctrl + arrow key method so it makes sense to use a realted key combo
+
+clicking ctrl on it's own could start the search state, then click a letter (it could auto go back to the previous letter)
+and then you get a time window to press left or right and it will naviagte to other instances of the initaially chosen letter
+
+you can break from the search by clicking any other key
+
+
+----------------
+wrap line
+----------------
+
+you could have if wrap around the line too (nice but would actually take a lot more logic)
+
+
+----------------
+multi line
+----------------
+
+obviously it would be cool to have this be multi line but again it's a lot more work
+
