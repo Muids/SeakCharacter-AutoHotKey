@@ -28,10 +28,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 ;KeyHistory
 
 ;ctrl and F5 to update to latest code changes
-^F5::Reload
-return
-
-;you have to test it in a simpler setting
+;^F5::Reload
+;return
 
 ;Debug Message
 ;^q:: MsgBox % InStr("tet trings", "s",,-1)
@@ -80,6 +78,9 @@ BackwardSearch:
 ;disable arrow keys briefly
 Hotkey, Left, Disable
 Hotkey, Right, Disable
+
+Hotkey, Left, On
+Hotkey, Right, On
 
 ;just do this once to preserve the line for safety
 if (StoreOriginalLine = "")
@@ -170,6 +171,9 @@ ArrowLoop:
 Hotkey, Left, LeftAsSearch
 Hotkey, Right, RightAsSearch
 
+Hotkey, Left, On
+Hotkey, Right, On
+
 SetTimer, ManageClipboardAndReturn, on
 
 ;the Timer will deal with safetly ending the program so we can simply return now
@@ -186,6 +190,9 @@ ForwardSearch:
 ;disable arrow keys briefly
 Hotkey, Left, Disable
 Hotkey, Right, Disable
+
+Hotkey, Left, On
+Hotkey, Right, On
 
 Send, +{Home}
 Sleep, 10
