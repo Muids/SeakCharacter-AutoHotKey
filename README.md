@@ -16,7 +16,7 @@ Go to specified character in a line of editable text, with line wrapping and dir
 
 - Pressing and releasing Ctrl gives you a few seconds to type the character you want to search for.
 - It will go to the previous instance of this character (since usually a typo is behind your caret as you just typed it).
-- After that, you have a few seconds in search mode where the arrow keys will navigate you to instances of the given letter forwards or backwards.
+- After that, you have a few seconds in search mode where ctrl + left or right arrow keys will navigate you to instances of the given letter forwards or backwards.
 
 ---
 
